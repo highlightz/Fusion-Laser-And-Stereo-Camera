@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EB0FFE19-7352-481B-8963-5362F9D38C64}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>useAllClasses</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>urg_cpp_dbg.lib;ws2_32.lib;setupapi.lib;PGRFlyCapture.lib;pgrflycapturegui.lib;opencv_calib3d244.lib;opencv_contrib244.lib;opencv_core244.lib;opencv_features2d244.lib;opencv_flann244.lib;opencv_gpu244.lib;opencv_highgui244.lib;opencv_imgproc244.lib;opencv_legacy244.lib;opencv_ml244.lib;opencv_objdetect244.lib;opencv_ts244.lib;opencv_video244.lib;pnmutils.lib;pnmutilsd.lib;triclops.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\hokuyo_wrapper;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>.\hokuyo_wrapper;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>urg_cpp_rls.lib;ws2_32.lib;setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bb2_wrapper\bb2_wrapper.h" />
+    <ClInclude Include="bb2_wrapper\StereoCamera.h" />
+    <ClInclude Include="hokuyo_wrapper\Connection_information.h" />
+    <ClInclude Include="hokuyo_wrapper\detect_os.h" />
+    <ClInclude Include="hokuyo_wrapper\DirectionGenerator.h" />
+    <ClInclude Include="hokuyo_wrapper\hokuyo_wrapper.h" />
+    <ClInclude Include="hokuyo_wrapper\Lidar.h" />
+    <ClInclude Include="hokuyo_wrapper\localgridgenerator.h" />
+    <ClInclude Include="hokuyo_wrapper\math_utilities.h" />
+    <ClInclude Include="hokuyo_wrapper\Urg_driver.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\filter.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\matcher.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\matrix.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\reconstruction.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\timer.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\triangle.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\viso.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\viso_mono.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2\viso_stereo.h" />
+    <ClInclude Include="libviso2_wrapper\libviso2_wrapper.h" />
+    <ClInclude Include="log_wrapper\log_wrapper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="bb2_wrapper\bb2_wrapper.cpp" />
+    <ClCompile Include="bb2_wrapper\StereoCamera.cpp" />
+    <ClCompile Include="hokuyo_wrapper\Connection_information.cpp" />
+    <ClCompile Include="hokuyo_wrapper\DirectionGenerator.cpp" />
+    <ClCompile Include="hokuyo_wrapper\hokuyo_wrapper.cpp" />
+    <ClCompile Include="hokuyo_wrapper\localgridgenerator.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\filter.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\matcher.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\matrix.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\reconstruction.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\triangle.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\viso.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\viso_mono.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2\viso_stereo.cpp" />
+    <ClCompile Include="libviso2_wrapper\libviso2_wrapper.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
