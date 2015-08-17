@@ -38,11 +38,19 @@ int main( int argc, char** argv )
 	// Initialize libviso2_wrapper object
 	// Calibration parameters for bb2 
 	VisualOdometryStereo::parameters param;
+#if 1 
+	// S2C25
 	double f  = 278.69; 
 	double cu = 317.00; 
 	double cv = 246.89; 
 	double parambase = 0.12;
-	
+#else
+	// S2C38
+	double f  = 278.69; 
+	double cu = 317.00; 
+	double cv = 246.89; 
+	double parambase = 0.12;
+#endif	
 	param.calib.f  = f;  // focal length in pixels
 	param.calib.cu = cu;  // principal point (u-coordinate) in pixels
 	param.calib.cv = cv;  // principal point (v-coordinate) in pixels
@@ -53,20 +61,27 @@ int main( int argc, char** argv )
 	
 	libviso2_wrapper libviso2( param );
 	
+	// Acquire initial laser sequence data
+	laser.bufferDistance( );
+        vector< long > distance = laser.getDistance( );
+	
 	// Main processing loop
 	while ( 1 )
 	{
-		// Acquire laser sequence data
-		laser.bufferDistance( );
-        	vector< long > distance = laser.getDistance( );
-        
         	// Generate next waypoint
         	double x_next = 0.0;
         	double y_next = 0.0;
         	dg.genWaypoint( distance, x_next, y_next );
         	
-        	const double toleranceThreshold = 0.2;  // 0.2 meter, wild value, to be tuned
-        	double distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
+        	laser.showDistancePoints( laserPoints );
+        	cv::imshow( "laser", laserPoints );
+        	cv::waitKey( 5 );
+        	laserPoints.setTo( cv::Scalar( 0 ) );
+        	
+        	const double toleranceThreshold = 1;  // 1 meter, wild value, to be tuned
+        	// Note: unit mm must be converted to m, before computing distance
+        	double distanceToWaypoint = libviso2.distanceToWaypoint( x_next / 1000, y_next / 1000 );
+        	
         	while ( distanceToWaypoint > toleranceThreshold )
         	{
         		// TODO:
@@ -90,12 +105,21 @@ int main( int argc, char** argv )
 			
 			libviso2.run( left_image, right_image );
 			
+			odometry anOdom = libviso2.getOdometry( );
+			cout << "Target: " << -y_next / 1000 << "," << x_next / 1000;
+			cout << "Current: " << anOdom.x << "," << anOdom.z;
+			cout << "Distance: " << distanceToWaypoint << endl;
+			
 			libviso2.drawOdometryCurve( odomCurve );
 			cv::imshow( "Odometry", odomCurve );
 			cv::waitKey( 5 );
 			
 			// Update the distance to the next target 
-			distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
+			distanceToWaypoint = libviso2.distanceToWaypoint( x_next / 1000, y_next / 1000 );
+			
+			// Update the laser sequence too
+			laser.bufferDistance( );
+			distance = laser.getDistance( );
         	}
         	
         	// When the target has been reached, 
