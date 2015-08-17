@@ -48,6 +48,9 @@ int main( int argc, char** argv )
 	param.calib.cv = cv;  // principal point (v-coordinate) in pixels
 	param.base     = parambase;  // baseline in meters
 	
+	// Draw odometry curve on this image
+	cv::Mat odomCurve( 640, 480, CV_8UC3 );
+	
 	libviso2_wrapper libviso2( param );
 	
 	// Main processing loop
@@ -86,6 +89,10 @@ int main( int argc, char** argv )
 			iplImageWrapper right_image( pGrayR );
 			
 			libviso2.run( left_image, right_image );
+			
+			libviso2.drawOdometryCurve( odomCurve );
+			cv::imshow( "Odometry", odomCurve );
+			cv::waitKey( 5 );
 			
 			// Update the distance to the next target 
 			distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
