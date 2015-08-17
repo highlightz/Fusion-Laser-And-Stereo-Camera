@@ -9,17 +9,17 @@ int main( int argc, char** argv )
 	// Initialize hokuyo_wrapper object, and start the laser range finder
 	hokuyo_wrapper laser( argc, argv );
 	laser.startHokuyo( );
-    laser.setInterestRadius( 10000 );  // 10 meters
+    	laser.setInterestRadius( 10000 );  // 10 meters
 	
 	// Initialize DirectionGenerator object    
-    DirectionGenerator dg;
-    dg.setInterestRadius( 4500 );  // 4.5 meters
+    	DirectionGenerator dg;
+	dg.setInterestRadius( 4500 );  // 4.5 meters
     
-    cv::Mat laserPoints;
+    	cv::Mat laserPoints;
     
-    // Initialize bb2_wrapper object, and start the stereo camera
-    const int WIDTH = 640;
-    const int HEIGHT = 480;
+    	// Initialize bb2_wrapper object, and start the stereo camera
+    	const int WIDTH = 640;
+    	const int HEIGHT = 480;
 	bb2_wrapper m_camera( WIDTH, HEIGHT );
 	IplImage* pframeL = cvCreateImage( cvSize( WIDTH, HEIGHT ), 8, 4 );
 	IplImage* pframeR = cvCreateImage( cvSize( WIDTH, HEIGHT ), 8, 4 );
@@ -55,23 +55,23 @@ int main( int argc, char** argv )
 	{
 		// Acquire laser sequence data
 		laser.bufferDistance( );
-        vector< long > distance = laser.getDistance( );
+        	vector< long > distance = laser.getDistance( );
         
-        // Generate next waypoint
-        double x_next = 0.0;
-        double y_next = 0.0;
-        dg.genWaypoint( distance, x_next, y_next );
-        
-        const double toleranceThreshold = 0.2;  // 0.2 meter, wild value, to be tuned
-        double distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
-        while ( distanceToWaypoint > toleranceThreshold )
-        {
-        	// TODO:
-        	// Here, drive the car towards the target
+        	// Generate next waypoint
+        	double x_next = 0.0;
+        	double y_next = 0.0;
+        	dg.genWaypoint( distance, x_next, y_next );
         	
-        	// Start visual odometry, and init its coordinate frame;
-        	// meanwhile, map the generated waypoint into odometry frame
-        	if ( m_camera.AcquireFrame( ) && m_camera.StereoMatch( ) )
+        	const double toleranceThreshold = 0.2;  // 0.2 meter, wild value, to be tuned
+        	double distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
+        	while ( distanceToWaypoint > toleranceThreshold )
+        	{
+        		// TODO:
+        		// Here, drive the car towards the target
+        		
+        		// Start visual odometry, and init its coordinate frame;
+        		// meanwhile, map the generated waypoint into odometry frame
+        		if ( m_camera.AcquireFrame( ) && m_camera.StereoMatch( ) )
 			{
 				pframeL = m_camera.GetRetfImgL( );
 				pframeR = m_camera.GetRetfImgR( );
@@ -89,13 +89,14 @@ int main( int argc, char** argv )
 			
 			// Update the distance to the next target 
 			distanceToWaypoint = libviso2.distanceToWaypoint( x_next, y_next );
-        }
-        
-        // When the target has been reached, 
-        // the odometry coordinate should be reinitialized
-        libviso2.reinitializePose( );
+        	}
+        	
+        	// When the target has been reached, 
+        	// the odometry coordinate should be reinitialized
+        	libviso2.reinitializePose( );
 	}
 
 	return 0;
 }
+
 
