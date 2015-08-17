@@ -58,8 +58,8 @@ int main( int argc, char** argv )
         vector< long > distance = laser.getDistance( );
         
         // Generate next waypoint
-        double x_next = 0;
-        double y_next = 0;
+        double x_next = 0.0;
+        double y_next = 0.0;
         dg.genWaypoint( distance, x_next, y_next );
         
         const double toleranceThreshold = 0.2;  // 0.2 meter, wild value, to be tuned
