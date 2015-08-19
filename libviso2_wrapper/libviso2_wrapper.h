@@ -64,7 +64,7 @@ public:
 	IplImage* pic;
 };
 
-// This struct stores the necessary pose information of a gound vehicle.
+// This struct stores the necessary pose information of a ground vehicle.
 struct odometry
 {
 	double x;  // axis of which points to the right
