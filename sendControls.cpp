@@ -1,10 +1,11 @@
-/*
-控制指令描述：
-长度：10字节
-帧头：fffe
-控制字段：两个float数据，一个是速度，一个是方向。
-游程：-1到1
-*/
+// By Xiaojia Xie
+// Aug. 26, 2015
+// Function: sends controls to MCU to control the car
+// Decription:
+// Lengh of instruction: 10 bytes
+// Frame header: fffe
+// Control segment: two float number, one for velocity, and the other for direction.
+// Range: [-1, 1]
 
 // Prepare controls
 float spd =  0.3f;
