@@ -65,5 +65,16 @@ atan2的计算符合标准的极坐标惯例，极轴是视觉里程计x-z坐标
 这个变换是：
 const double pi = 3.14;
 totalAngle = pi / 2 - totalAngle;
+
+directionVectorCurr.x = cos( totalAngle );
+directionVectorCurr.y = sin( totalAngle );
+
+targetVector.x = target_x - curr_x;
+targetVector.y = target_y - curr_y;
+
+// Normalization
+targetVector.x = targetVector.x / sqrt( targetVector.x * targetVector.x + targetVector.y * targetVector.y );
+targetVector.y = targetVector.y / sqrt( targetVector.x * targetVector.x + targetVector.y * targetVector.y );
+
 变换后的totalAngle就是标准极坐标系下的角弧度值。
 */
