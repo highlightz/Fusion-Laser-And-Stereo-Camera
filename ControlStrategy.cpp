@@ -50,3 +50,10 @@ namespace control_module
   	controlSpeed = v_max / sqrt( abs( proportional_gain * controlAngle ) + 1 );
   }
 }
+
+/*
+atan2(  1,  1 )   0.785
+atan2(  1, -1 )  -0.785
+atan2( -1, -1 )  -2.356
+atan2( -1,  1 )   2.356
+*/
